@@ -8,22 +8,7 @@ defmodule Encryption do
 
   Based on client attributes, gets the key from disk to be used in encryption
 
-  iex> Encryption.encrypt("1")
-  "Key should be present"
-
-  iex> File.write!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key"), "1")
-  :ok
-  iex> Encryption.encrypt("2")
-  "21"
-  iex> File.rm!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key"))
-  :ok
-
-  iex> File.write!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key"), "1")
-  :ok
-  iex> Encryption.encrypt(2)
-  "Key and Data should be binary and present"
-  iex> File.rm!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key"))
-  :ok
+  Check tests for usage, data restrictions and result when key is present/absent
   """
   def encrypt(data) do
     key = case File.read(Path.join(Application.get_env(:encryption, :keys_path), "user-1.key")) do
