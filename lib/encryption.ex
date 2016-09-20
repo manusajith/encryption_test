@@ -11,8 +11,8 @@ defmodule Encryption do
   Check tests for usage, data restrictions and result when key is present/absent
   """
   def encrypt(data) do
-    key = case File.read(Path.join(Application.get_env(:encryption, :keys_path), "user-1.key")) do
-      {:ok, contents} -> contents
+    key = case File.read(Application.get_env(:encryption, :master_key_path)) do
+      {:ok, contents} -> String.trim(contents)
       {:error, reason} -> nil
     end
     encrypt(key, data)

@@ -4,8 +4,8 @@ defmodule EncryptionTest do
 
   describe "encrypt when key is present" do
     setup do
-      File.write!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key"), "1")
-      on_exit fn -> File.rm!(Path.join(Mix.Project.manifest_path, "priv/keys/user-1.key")) end
+      assert File.exists?(Application.get_env(:encryption, :master_key_path))
+      :ok
     end
 
     test "returns result" do
@@ -17,7 +17,16 @@ defmodule EncryptionTest do
     end
   end
 
-  test "returns error when key not present" do
-    assert Encryption.encrypt(2) == "Key should be present"
+  describe "encrypt when key is not present" do
+    setup do
+      orig_path = Application.get_env(:encryption, :master_key_path)
+      Application.put_env(:encryption, :master_key_path, Path.join(orig_path, "not_found"))
+      on_exit(fn -> Application.put_env(:encryption, :master_key_path, orig_path) end)
+      :ok
+    end
+
+    test "returns error message" do
+      assert Encryption.encrypt(2) == "Key should be present"
+    end
   end
 end

@@ -28,4 +28,4 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
-config :encryption, :keys_path, Path.join(Mix.Project.manifest_path, "priv/keys")
+config :encryption, :master_key_path, Path.join(Mix.Project.manifest_path, "priv/keys/master.key")
