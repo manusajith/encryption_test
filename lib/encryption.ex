@@ -19,10 +19,10 @@ defmodule Encryption do
   end
 
 
-  defp encrypt(key, data) when is_nil(key), do: "Key should be present"
-  defp encrypt(key, data) when is_binary(key) and is_binary(data) do
+  def encrypt(key, data) when is_nil(key), do: "Key should be present"
+  def encrypt(key, data) when is_binary(key) and is_binary(data) do
     Process.sleep(2000)
     data <> key
   end
-  defp encrypt(key, data), do: "Key and Data should be binary and present"
+  def encrypt(key, data), do: "Key and Data should be binary and present"
 end
